@@ -1,0 +1,26 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": true,
+  "prettier.enable": true,
+  "prettier.configPath": "./.vscode/code-lint-prettier.json",
+  "eslint.enable": true,
+  "eslint.options": {
+    "ignorePath": "./.vscode/.eslintignore",
+    "overrideConfigFile": "./.vscode/code-lint-vue3.json"
+  },
+  "vetur.validation.template": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
