@@ -13,6 +13,11 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 ## Project Setup
 
 ```sh
+# 更新依赖包版本号
+npx npm-check-updates -u
+```
+
+```sh
 npm install
 ```
 
