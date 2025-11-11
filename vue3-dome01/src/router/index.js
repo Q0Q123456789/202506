@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 // 动态导入 views 文件夹下面的所有 vue 文件
 const modules = import.meta.glob('../views/**/*.vue')
 
@@ -13,7 +12,6 @@ const routes = Object.keys(modules).map(key => {
   const routeName = isIndexFile
     ? key.split('/').slice(-2, -1)[0]
     : fileName
-  console.log('routeName', routeName)
   // 验证路由名称
   if (!routeName || routeName.trim() === '') {
     if (import.meta.env.NODE_ENV === 'development') {
@@ -52,14 +50,19 @@ const routes = Object.keys(modules).map(key => {
     },
   }
 }).filter(route => route !== null)
-
+routes.push(
+  {
+    path: '/',
+    redirect: '/home'
+  }
+)
 // 添加404路由作为fallback
 routes.push({
   path: '/:pathMatch(.*)*',
   name: 'not-found',
   // component: () => import('../components/NotFound.vue')
 })
-console.log('routes', routes)
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes

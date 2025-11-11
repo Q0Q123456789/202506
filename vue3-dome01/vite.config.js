@@ -40,6 +40,11 @@ export default defineConfig(({ mode }) => ({
     port: 5173,
     open: true
   },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true
+  },
   build: {
     target: 'es2015',
     sourcemap: false,
