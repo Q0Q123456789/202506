@@ -2,6 +2,12 @@
   <div class="home">
     home
     <base-dialog v-model="openVisitDialog"> </base-dialog>
+    <base-tabs
+      :data="[
+        { label: 'tabs1', value: 0 },
+        { label: 'tabs2', value: 1 }
+      ]"
+    ></base-tabs>
   </div>
 </template>
 
@@ -10,11 +16,11 @@
 defineOptions({
   name: 'HomeView'
 })
-const openVisitDialog = ref(true)
+const openVisitDialog = ref(false)
 </script>
 
 <style lang="less" scoped>
 .home {
-  color: red;
+  // color: red;
 }
 </style>
