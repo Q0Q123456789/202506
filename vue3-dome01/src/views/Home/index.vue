@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     home
+    <base-dialog v-model="openVisitDialog"> </base-dialog>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
   defineOptions({
     name: 'HomeView'
   })
+  const openVisitDialog = ref(true)
 </script>
 
 <style lang="less" scoped>
