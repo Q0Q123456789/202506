@@ -6,11 +6,14 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import tailwindcss from '@tailwindcss/vite'
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     vueJsx(),
+    tailwindcss(),
     // 仅在开发环境启用 devtools，避免生产构建带入额外开销或风险
     // 仅在 vite 的 mode 为 development 时启用 devtools（避免直接引用 process）
     ...(mode === 'development' ? [vueDevTools()] : []),
@@ -37,7 +40,7 @@ export default defineConfig(({ mode }) => ({
   ],
   // 开发服务器和构建优化（可按需调整）
   server: {
-    port: 5173,
+    host: '0.0.0.0',
     open: true
   },
   env: {

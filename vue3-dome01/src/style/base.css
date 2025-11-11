@@ -60,7 +60,6 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
   background: #e2e7ef;
   transition:
     color 0.5s,
@@ -83,4 +82,56 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[m] {
+  margin: attr(m px);
+}
+
+[ml] {
+  margin-left: attr(ml px);
+}
+
+[mr] {
+  margin-right: attr(mr px);
+}
+
+[mt] {
+  margin-top: attr(mt px);
+}
+
+[mb] {
+  margin-bottom: attr(mb px);
+}
+
+[p] {
+  padding: attr(p px);
+}
+
+[pl] {
+  padding-left: attr(pl px);
+}
+
+[pr] {
+  padding-right: attr(pr px);
+}
+
+[pt] {
+  padding-top: attr(pt px);
+}
+
+[pb] {
+  padding-bottom: attr(pb px);
+}
+
+[fs] {
+  font-size: attr(fs px);
+}
+
+[fw] {
+  font-weight: attr(fw);
+}
+
+[color] {
+  color: attr(color);
 }
