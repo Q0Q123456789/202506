@@ -1,14 +1,5 @@
 <template>
-  <div class="home">
-    home
-    <base-dialog v-model="openVisitDialog"> </base-dialog>
-    <base-tabs
-      :data="[
-        { label: 'tabs1', value: 0 },
-        { label: 'tabs2', value: 1 }
-      ]"
-    ></base-tabs>
-  </div>
+  <div class="home">home</div>
 </template>
 
 <script setup>

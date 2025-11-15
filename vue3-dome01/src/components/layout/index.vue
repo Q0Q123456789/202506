@@ -6,7 +6,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px" style="box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.12); height: calc(100vh - 60px)">
-          Aside
+          <menuPage />
         </el-aside>
         <el-main>
           <breadcrumbPage></breadcrumbPage>
@@ -22,6 +22,7 @@
 <script setup>
 import headerPage from './header.vue'
 import breadcrumbPage from './breadcrumb.vue'
+import menuPage from './menu.vue'
 </script>
 
 <style lang="less" scoped>

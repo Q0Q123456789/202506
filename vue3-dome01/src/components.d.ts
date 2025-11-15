@@ -13,10 +13,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseDialog: typeof import('./components/Base/BaseDialog.vue')['default']
+    BasePage: typeof import('./components/Base/BasePage.vue')['default']
     BaseTabs: typeof import('./components/Base/BaseTabs.vue')['default']
     Breadcrumb: typeof import('./components/layout/breadcrumb.vue')['default']
     Header: typeof import('./components/layout/header.vue')['default']
     Layout: typeof import('./components/layout/index.vue')['default']
+    Menu: typeof import('./components/layout/menu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
@@ -25,10 +27,12 @@ declare module 'vue' {
 // For TSX support
 declare global {
   const BaseDialog: typeof import('./components/Base/BaseDialog.vue')['default']
+  const BasePage: typeof import('./components/Base/BasePage.vue')['default']
   const BaseTabs: typeof import('./components/Base/BaseTabs.vue')['default']
   const Breadcrumb: typeof import('./components/layout/breadcrumb.vue')['default']
   const Header: typeof import('./components/layout/header.vue')['default']
   const Layout: typeof import('./components/layout/index.vue')['default']
+  const Menu: typeof import('./components/layout/menu.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
 }
