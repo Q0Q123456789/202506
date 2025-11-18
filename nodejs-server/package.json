@@ -1,0 +1,38 @@
+{
+  "name": "nodejs-server",
+  "version": "1.0.0",
+  "description": "Node.js 服务，包含注册、登录和 WebSocket 功能",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js --env-file=.env.production",
+    "dev": "node --watch server.js --env-file=.env",
+    "init-db": "node database/init.js",
+    "test-db": "node utils/db-test.js",
+    "generate-cert": "bash utils/generate-cert.sh",
+    "init-logs": "node database/init-logs.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "websocket",
+    "authentication"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "mysql2": "^3.6.5",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "selfsigned": "^2.1.1"
+  }
+}
+

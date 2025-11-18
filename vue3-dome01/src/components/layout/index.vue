@@ -16,6 +16,9 @@
         </el-main>
       </el-container>
     </el-container>
+    <div class="login">
+      <img src="@/assets/image/login.svg" alt="" />
+    </div>
   </div>
 </template>
 
@@ -37,5 +40,25 @@ import menuPage from './menu.vue'
 .main-views {
   padding: 10px;
   height: calc(100vh - 110px);
+}
+
+.common-layout {
+  position: relative;
+}
+
+.login {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100px;
+  height: 30px;
+  // background: url('@/assets/image/login.svg') no-repeat;
+  z-index: 999;
+  // background-size: 100% 100%;
+  transform: translateX(-50%);
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

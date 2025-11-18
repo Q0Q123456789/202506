@@ -1,5 +1,5 @@
 <template>
-  <el-menu router="true">
+  <el-menu :router="true">
     <template v-for="(item, index) in menu" :key="index">
       <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
         <template #title> {{ item.name }} </template>
