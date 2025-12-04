@@ -4,21 +4,61 @@ import type { H3Event } from 'h3'
 // JWT 密钥
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-here-change-in-production'
 
-// 生成 JWT token
-export function generateToken(user: { id: string; username: string; email: string }): string {
-  return jwt.sign(
-    { id: user.id, username: user.username, email: user.email },
-    JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
-  )
-}
-
-// 验证 JWT token
-export function verifyToken(token: string): any {
+/**
+ * 验证JWT token的工具函数
+ * @param token JWT token字符串
+ * @returns 解析后的token对象或null（如果无效）
+ */
+export function verifyToken(token: string) {
   try {
     return jwt.verify(token, JWT_SECRET)
   } catch (error) {
     return null
+  }
+}
+
+/**
+ * 生成JWT token的工具函数
+ * @param payload 要包含在token中的数据
+ * @returns 生成的JWT token字符串
+ */
+export function generateToken(payload: any) {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
+}
+
+/**
+ * 中间件函数，用于验证请求中的token
+ * @param event H3事件对象
+ * @returns 如果验证成功则返回true，否则抛出错误
+ */
+export async function requireAuthToken(event: any) {
+  const authHeader = event.node.req.headers.authorization
+  
+  if (!authHeader) {
+    throw createError({
+      statusCode: 401,
+      message: 'Authorization header missing'
+    })
+  }
+
+  const token = authHeader.split(' ')[1]
+  
+  if (!token) {
+    throw createError({
+      statusCode: 401,
+      message: 'Token missing'
+    })
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET)
+    ;(event as any).context.auth = decoded
+    return true
+  } catch (error) {
+    throw createError({
+      statusCode: 401,
+      message: 'Invalid token'
+    })
   }
 }
 
@@ -48,4 +88,3 @@ export function requireAuth(event: H3Event): any {
   }
   return user
 }
-
