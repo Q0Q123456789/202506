@@ -88,6 +88,10 @@ const swaggerOptions = {
         name: '产品',
         description: '产品管理相关接口',
       },
+      {
+        name: 'WebSocket',
+        description: 'WebSocket 相关接口',
+      },
     ],
     components: {
       securitySchemes: {
@@ -315,11 +319,14 @@ const swaggerOptions = {
 let swaggerSpec: any
 
 try {
+  // 使用相对路径扫描 API 文件
   const apiDir = join(__dirname, '../api')
+  console.log('🔍 扫描 API 目录:', apiDir)
+  
   const apiFiles = getAllApiFiles(apiDir)
   console.log('📝 扫描到的 API 文件:', apiFiles.length, '个')
   if (apiFiles.length > 0) {
-    console.log('📄 文件列表:', apiFiles.map(f => f.split('/').pop()).join(', '))
+    console.log('📄 文件列表:', apiFiles.map(f => f.split(/[/\\]/).pop()).join(', '))
   }
   
   // 直接读取所有文件内容并合并
