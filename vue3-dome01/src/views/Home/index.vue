@@ -1,5 +1,9 @@
 <template>
-  <div class="home">home</div>
+  <div class="home">
+    home
+
+    <i class="icon-across-chain"></i>
+  </div>
 </template>
 
 <script setup>

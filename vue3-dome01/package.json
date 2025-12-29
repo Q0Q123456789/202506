@@ -12,12 +12,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@devui-design/icons": "^1.4.0",
     "@element-plus/icons-vue": "^2.3.2",
     "@vueuse/core": "^14.1.0",
     "echarts": "^6.0.0",
     "element-plus": "^2.13.0",
-    "less": "^4.5.1",
     "pinia": "^3.0.4",
+    "postcss-px-to-viewport-8-plugin": "^1.2.5",
     "sass": "^1.97.1",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4"
@@ -30,10 +31,12 @@
     "@vitest/eslint-plugin": "^1.6.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
+    "vue-jsx-vapor": "^3.1.3",
+    "vue-log-arsenal": "^1.0.8",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.6.2",
     "globals": "^16.5.0",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "prettier": "3.7.4",
     "tailwindcss": "^4.1.18",
     "unplugin-auto-import": "^20.3.0",
