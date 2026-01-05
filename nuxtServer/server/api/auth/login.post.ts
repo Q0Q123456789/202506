@@ -102,7 +102,6 @@ export default defineEventHandler(async (event) => {
 
     // 生成 token
     const token = generateToken(user)
-
     return {
       success: true,
       message: '登录成功',

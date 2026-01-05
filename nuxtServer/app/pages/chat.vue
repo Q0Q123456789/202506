@@ -4,7 +4,10 @@
     <aside class="sidebar">
       <div class="user-header">
         <div class="user-avatar">
-          <img :src="userInfo?.avatar || '/default-avatar.svg'" :alt="userInfo?.username" />
+          <img
+            :src="userInfo?.avatar || '/default-avatar.svg'"
+            :alt="userInfo?.username"
+          />
           <span class="online-indicator"></span>
         </div>
         <div class="user-info">
@@ -13,19 +16,42 @@
         </div>
         <div class="user-actions">
           <NuxtLink to="/settings" class="action-btn" title="用户设置">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 9.96l4.24 4.24M1.54 14.04l4.24-4.24M18.46 14.04l4.24-4.24"></path>
+              <path
+                d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 9.96l4.24 4.24M1.54 14.04l4.24-4.24M18.46 14.04l4.24-4.24"
+              ></path>
             </svg>
           </NuxtLink>
           <NuxtLink to="/" class="action-btn" title="返回首页">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
           </NuxtLink>
           <button @click="handleLogout" class="logout-btn" title="退出登录">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
               <polyline points="16 17 21 12 16 7"></polyline>
               <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -33,16 +59,18 @@
           </button>
         </div>
       </div>
-      
+
       <div class="tabs">
-        <button 
+        <button
           :class="['tab-btn', { active: activeTab === 'users' }]"
           @click="activeTab = 'users'"
         >
           用户列表
-          <span v-if="onlineUsers.length" class="badge">{{ onlineUsers.length }}</span>
+          <span v-if="onlineUsers.length" class="badge">{{
+            onlineUsers.length
+          }}</span>
         </button>
-        <button 
+        <button
           :class="['tab-btn', { active: activeTab === 'rooms' }]"
           @click="activeTab = 'rooms'"
         >
@@ -50,51 +78,57 @@
           <span v-if="rooms.length" class="badge">{{ rooms.length }}</span>
         </button>
       </div>
-      
+
       <!-- 用户列表 -->
       <div v-if="activeTab === 'users'" class="user-list">
-        <div v-if="loading.users" class="loading">
-          加载中...
-        </div>
+        <div v-if="loading.users" class="loading">加载中...</div>
         <div v-else-if="onlineUsers.length === 0" class="empty-state">
           暂无在线用户
         </div>
         <div v-else>
-          <div 
-            v-for="user in onlineUsers" 
+          <div
+            v-for="user in onlineUsers"
             :key="user.id"
             :class="['user-item', { current: user.id === userInfo?.id }]"
             @click="startPrivateChat(user)"
           >
             <div class="user-avatar small">
-              <img :src="user.avatar || '/default-avatar.svg'" :alt="user.username" />
+              <img
+                :src="user.avatar || '/default-avatar.svg'"
+                :alt="user.username"
+              />
               <span class="online-indicator"></span>
             </div>
             <div class="user-details">
               <span class="username">{{ user.username }}</span>
-              <span class="connection-info">{{ user.connectionCount }} 个连接</span>
+              <span class="connection-info"
+                >{{ user.connectionCount }} 个连接</span
+              >
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- 聊天室列表 -->
       <div v-if="activeTab === 'rooms'" class="room-list">
-        <div v-if="loading.rooms" class="loading">
-          加载中...
-        </div>
-        <div v-else-if="rooms.length === 0" class="empty-state">
-          暂无聊天室
-        </div>
+        <div v-if="loading.rooms" class="loading">加载中...</div>
+        <div v-else-if="rooms.length === 0" class="empty-state">暂无聊天室</div>
         <div v-else>
-          <div 
-            v-for="room in rooms" 
+          <div
+            v-for="room in rooms"
             :key="room.name"
             class="room-item"
             @click="joinRoom(room.name)"
           >
             <div class="room-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
@@ -109,7 +143,7 @@
         </div>
       </div>
     </aside>
-    
+
     <!-- 聊天区域 -->
     <main class="chat-main">
       <div v-if="!currentChat" class="welcome-screen">
@@ -126,34 +160,46 @@
           </div>
         </div>
       </div>
-      
+
       <div v-else class="chat-content">
         <header class="chat-header">
           <div class="chat-info">
             <button @click="currentChat = null" class="back-btn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
             <h3>{{ currentChat.name }}</h3>
-            <span class="chat-type">{{ currentChat.type === 'private' ? '私聊' : '群聊' }}</span>
+            <span class="chat-type">{{
+              currentChat.type === "private" ? "私聊" : "群聊"
+            }}</span>
           </div>
           <div class="connection-status">
             <span :class="['status-dot', { connected: wsConnected }]"></span>
-            {{ wsConnected ? '已连接' : '连接中...' }}
+            {{ wsConnected ? "已连接" : "连接中..." }}
           </div>
         </header>
-        
+
         <div class="messages-container" ref="messagesContainer">
           <div v-if="loading.messages" class="loading">加载消息中...</div>
           <div v-else>
-            <div 
-              v-for="message in messages" 
+            <div
+              v-for="message in messages"
               :key="message.id"
-              :class="['message', { 
-                'own-message': message.from === userInfo?.id,
-                'system-message': message.type === 'system'
-              }]"
+              :class="[
+                'message',
+                {
+                  'own-message': message.from === userInfo?.id,
+                  'system-message': message.type === 'system',
+                },
+              ]"
             >
               <div v-if="message.type !== 'system'" class="message-content">
                 <div class="message-header">
@@ -168,22 +214,29 @@
             </div>
           </div>
         </div>
-        
+
         <form @submit.prevent="sendMessage" class="message-form">
           <div class="input-group">
-            <input 
+            <input
               v-model="messageInput"
               type="text"
               placeholder="输入消息..."
               :disabled="!wsConnected"
               @keydown.enter.prevent="sendMessage"
             />
-            <button 
+            <button
               type="submit"
               :disabled="!messageInput.trim() || !wsConnected"
               class="send-btn"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
@@ -196,86 +249,88 @@
 </template>
 
 <script setup>
-definePageMeta({
-})
+definePageMeta({});
 
 // 检查认证状态
-const token = useCookie('auth-token')
-const userInfoCookie = useCookie('user-info')
+const token = useCookie("auth-token");
+const userInfoCookie = useCookie("user-info");
 
 if (!token.value) {
-  await navigateTo('/login')
+  await navigateTo("/login");
 }
 
-const userInfo = ref(userInfoCookie.value ? userInfoCookie.value : null)
-const onlineUsers = ref([])
-const rooms = ref([])
-const activeTab = ref('users')
-const currentChat = ref(null)
-const messages = ref([])
-const messageInput = ref('')
-const wsConnected = ref(false)
-const ws = ref(null)
-const messageId = ref(0)
+const userInfo = ref(userInfoCookie.value ? userInfoCookie.value : null);
+const onlineUsers = ref([]);
+const rooms = ref([]);
+const activeTab = ref("users");
+const currentChat = ref(null);
+const messages = ref([]);
+const messageInput = ref("");
+const wsConnected = ref(false);
+const ws = ref(null);
+const messageId = ref(0);
 
 const loading = ref({
   users: false,
   rooms: false,
-  messages: false
-})
+  messages: false,
+});
 
-const messagesContainer = ref(null)
+const messagesContainer = ref(null);
 
 // 获取用户信息
 onMounted(async () => {
-  const userCookie = useCookie('user-info')
+  const userCookie = useCookie("user-info");
   if (userCookie.value) {
-    userInfo.value = userCookie.value
+    userInfo.value = userCookie.value;
   }
-  
-  await loadOnlineUsers()
-  await loadRooms()
-  initWebSocket()
-})
+
+  await loadOnlineUsers();
+  await loadRooms();
+  initWebSocket();
+});
 
 // 加载在线用户
 const loadOnlineUsers = async () => {
-  loading.value.users = true
+  loading.value.users = true;
   try {
-    const token = useCookie('auth-token').value
+    const token = useCookie("auth-token").value;
     // 如果是模拟token，使用模拟数据
-    if (token && token.startsWith('mock-token')) {
+    if (token && token.startsWith("mock-token")) {
       // 模拟在线用户数据
       onlineUsers.value = [
         {
-          id: 'demo-user-1',
+          id: "demo-user-1",
           connectionCount: 1,
-          rooms: ['general'],
-          username: '演示用户1'
+          rooms: ["general"],
+          username: "演示用户1",
         },
         {
-          id: 'demo-user-2',
+          id: "demo-user-2",
           connectionCount: 1,
-          rooms: ['general'],
-          username: '演示用户2'
-        }
-      ]
-      return
+          rooms: ["general"],
+          username: "演示用户2",
+        },
+      ];
+      return;
     }
-    
-    const data = await $fetch('/api/ws/users', {
+
+    const data = await $fetch("/api/ws/users", {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (data.success) {
-      onlineUsers.value = data.users.map(user => ({
+      onlineUsers.value = data.users.map((user) => ({
         ...user,
-        username: user.id === userInfo.value?.id ? userInfo.value.username : `用户${user.id.slice(-4)}`
-      }))
+        username:
+          user.id === userInfo.value?.id
+            ? userInfo.value.username
+            : `用户${user.id.slice(-4)}`,
+      }));
     }
   } catch (error) {
-    console.error('加载用户列表失败:', error)
+    console.error("加载用户列表失败:", error);
     // 在错误情况下也提供模拟数据
     if (userInfo.value) {
       onlineUsers.value = [
@@ -283,320 +338,354 @@ const loadOnlineUsers = async () => {
           id: userInfo.value.id,
           connectionCount: 1,
           rooms: [],
-          username: userInfo.value.username
-        }
-      ]
+          username: userInfo.value.username,
+        },
+      ];
     }
   } finally {
-    loading.value.users = false
+    loading.value.users = false;
   }
-}
+};
 
 // 加载聊天室
 const loadRooms = async () => {
-  loading.value.rooms = true
+  loading.value.rooms = true;
   try {
-    const token = useCookie('auth-token').value
-    
+    const token = useCookie("auth-token").value;
+
     // 如果是模拟token，使用模拟数据
-    if (token && token.startsWith('mock-token')) {
+    if (token && token.startsWith("mock-token")) {
       rooms.value = [
         {
-          name: 'general',
-          memberCount: 2
+          name: "general",
+          memberCount: 2,
         },
         {
-          name: 'random',
-          memberCount: 1
-        }
-      ]
-      return
+          name: "random",
+          memberCount: 1,
+        },
+      ];
+      return;
     }
-    
-    const data = await $fetch('/api/ws/rooms', {
+
+    const data = await $fetch("/api/ws/rooms", {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (data.success) {
-      rooms.value = data.rooms
+      rooms.value = data.rooms;
     }
   } catch (error) {
-    console.error('加载聊天室失败:', error)
+    console.error("加载聊天室失败:", error);
     // 在错误情况下也提供模拟数据
     rooms.value = [
       {
-        name: 'general',
-        memberCount: 1
-      }
-    ]
+        name: "general",
+        memberCount: 1,
+      },
+    ];
   } finally {
-    loading.value.rooms = false
+    loading.value.rooms = false;
   }
-}
+};
 
 // 初始化WebSocket
 const initWebSocket = () => {
-  const token = useCookie('auth-token').value
-  
+  const token = useCookie("auth-token").value;
   if (!token) {
-    console.error('WebSocket: 没有找到认证令牌')
-    return
+    console.error("WebSocket: 没有找到认证令牌");
+    return;
   }
-  
+
   // 如果是模拟token，不尝试连接真实WebSocket
-  if (token.startsWith('mock-token')) {
-    console.log('WebSocket: 模拟模式，跳过真实连接')
-    wsConnected.value = true // 模拟连接成功
-    
+  if (token.startsWith("mock-token")) {
+    console.log("WebSocket: 模拟模式，跳过真实连接");
+    wsConnected.value = true; // 模拟连接成功
+
     // 模拟接收一些系统消息
     setTimeout(() => {
       addMessage({
         id: messageId.value++,
-        type: 'system',
-        content: '模拟模式下已连接到聊天服务器',
-        ts: Date.now()
-      })
-    }, 1000)
-    
-    return
+        type: "system",
+        content: "模拟模式下已连接到聊天服务器",
+        ts: Date.now(),
+      });
+    }, 1000);
+
+    return;
   }
-  
-  const { $ws } = useNuxtApp()
-  
+
+  const { $ws } = useNuxtApp();
   // 监听连接状态
-  watch(() => $ws.wsConnected, (connected) => {
-    console.log('WebSocket: 连接状态变化:', connected)
-    wsConnected.value = connected
-    if (connected) {
-      console.log('WebSocket: 连接成功')
-    }
-  })
-  
-  // 监听消息
-  watch(() => $ws.ws?.readyState, (readyState) => {
-    console.log('WebSocket: 状态变化:', readyState)
-    if (readyState === WebSocket.OPEN) {
-      $ws.ws.onmessage = (event) => {
-        try {
-          const message = JSON.parse(event.data)
-          handleWebSocketMessage(message)
-        } catch (error) {
-          console.error('WebSocket: 解析消息失败:', error)
-        }
+  watch(
+    () => $ws.wsConnected,
+    (connected) => {
+      console.log("WebSocket: 连接状态变化:", connected);
+      wsConnected.value = connected;
+      if (connected) {
+        console.log("WebSocket: 连接成功");
       }
+    },
+    {
+      immediate: true,
+      deep: true,
     }
-  })
-  
+  );
+
+  // 监听消息
+  watch(
+    () => $ws.ws.value?.readyState,
+    (readyState) => {
+      console.log("WebSocket: 状态变化:", readyState, WebSocket.OPEN);
+      if ($ws.ws.value?.readyState === WebSocket.OPEN) {
+        $ws.ws.onmessage = (event) => {
+          try {
+            const message = JSON.parse(event.data);
+            handleWebSocketMessage(message);
+          } catch (error) {
+            console.error("WebSocket: 解析消息失败:", error);
+          }
+        };
+      }
+    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
+
   // 尝试连接
   try {
-    $ws.connect(token)
+    $ws.connect(token);
   } catch (error) {
-    console.error('WebSocket: 连接失败:', error)
-    wsConnected.value = false
+    console.error("WebSocket: 连接失败:", error);
+    wsConnected.value = false;
   }
-}
+};
 
 // 处理WebSocket消息
 const handleWebSocketMessage = (message) => {
   switch (message.type) {
-    case 'private':
-      if (!currentChat.value || 
-          (currentChat.value.type === 'private' && currentChat.value.id !== message.from && currentChat.value.id !== message.to)) {
+    case "private":
+      if (
+        !currentChat.value ||
+        (currentChat.value.type === "private" &&
+          currentChat.value.id !== message.from &&
+          currentChat.value.id !== message.to)
+      ) {
         // 收到新的私聊消息，创建聊天会话
-        startPrivateChat({ id: message.from })
+        startPrivateChat({ id: message.from });
       }
       addMessage({
         ...message,
         id: messageId.value++,
-        senderName: message.from === userInfo.value?.id ? userInfo.value.username : `用户${message.from.slice(-4)}`
-      })
-      break
-      
-    case 'group':
-      if (currentChat.value && currentChat.value.type === 'room' && currentChat.value.name === message.room) {
+        senderName:
+          message.from === userInfo.value?.id
+            ? userInfo.value.username
+            : `用户${message.from.slice(-4)}`,
+      });
+      break;
+
+    case "group":
+      console.log("currentChat.value", currentChat.value);
+      if (
+        currentChat.value &&
+        currentChat.value.type === "room" &&
+        currentChat.value.name === message.room
+      ) {
         addMessage({
           ...message,
           id: messageId.value++,
-          senderName: message.from === userInfo.value?.id ? userInfo.value.username : `用户${message.from.slice(-4)}`
-        })
+          senderName:
+            message.from === userInfo.value?.id
+              ? userInfo.value.username
+              : `用户${message.from.slice(-4)}`,
+        });
       }
-      break
-      
-    case 'stats':
+      break;
+
+    case "stats":
       // 更新在线统计
-      break
+      break;
   }
-}
+};
 
 // 开始私聊
 const startPrivateChat = (user) => {
-  if (user.id === userInfo.value?.id) return
-  
+  if (user.id === userInfo.value?.id) return;
+
   currentChat.value = {
-    type: 'private',
+    type: "private",
     id: user.id,
-    name: user.username || `用户${user.id.slice(-4)}`
-  }
-  
+    name: user.username || `用户${user.id.slice(-4)}`,
+  };
+
   // 清空消息历史（实际应用中应该从服务器加载）
-  messages.value = []
-  
+  messages.value = [];
+
   // 添加系统消息
   addMessage({
     id: messageId.value++,
-    type: 'system',
+    type: "system",
     content: `开始与 ${currentChat.value.name} 的私聊`,
-    ts: Date.now()
-  })
-}
+    ts: Date.now(),
+  });
+};
 
 // 加入聊天室
 const joinRoom = async (roomName) => {
-  const { $ws } = useNuxtApp()
+  const { $ws } = useNuxtApp();
   if (wsConnected.value) {
     $ws.send({
-      type: 'join',
-      room: roomName
-    })
+      type: "join",
+      room: roomName,
+    });
   }
-  
+
   currentChat.value = {
-    type: 'room',
-    name: roomName
-  }
-  
+    type: "room",
+    name: roomName,
+  };
+
   // 清空消息历史
-  messages.value = []
-  
+  messages.value = [];
+
   // 添加系统消息
   addMessage({
     id: messageId.value++,
-    type: 'system',
+    type: "system",
     content: `已加入聊天室 ${roomName}`,
-    ts: Date.now()
-  })
-}
+    ts: Date.now(),
+  });
+};
 
 // 创建并加入房间
 const createAndJoinRoom = (roomName) => {
-  joinRoom(roomName)
-}
+  joinRoom(roomName);
+};
 
 // 发送消息
 const sendMessage = () => {
   if (!messageInput.value.trim() || !wsConnected.value || !currentChat.value) {
-    return
+    return;
   }
-  
-  const token = useCookie('auth-token').value
+
+  const token = useCookie("auth-token").value;
   const messageData = {
     content: messageInput.value.trim(),
-    ts: Date.now()
-  }
-  
+    ts: Date.now(),
+  };
+
   // 如果是模拟token，模拟发送消息
-  if (token && token.startsWith('mock-token')) {
+  if (token && token.startsWith("mock-token")) {
     const message = {
       ...messageData,
       id: messageId.value++,
-      from: userInfo.value?.id || 'demo-user',
-      type: currentChat.value.type === 'private' ? 'private' : 'group',
-      to: currentChat.value.type === 'private' ? currentChat.value.id : undefined,
-      room: currentChat.value.type === 'room' ? currentChat.value.name : undefined,
-      senderName: userInfo.value?.username || '演示用户'
-    }
-    
+      from: userInfo.value?.id || "demo-user",
+      type: currentChat.value.type === "private" ? "private" : "group",
+      to:
+        currentChat.value.type === "private" ? currentChat.value.id : undefined,
+      room:
+        currentChat.value.type === "room" ? currentChat.value.name : undefined,
+      senderName: userInfo.value?.username || "演示用户",
+    };
+
     // 直接添加消息到列表
-    addMessage(message)
-    
+    addMessage(message);
+
     // 模拟收到回复
     setTimeout(() => {
       const replyMessage = {
         id: messageId.value++,
-        from: 'demo-user-reply',
-        type: currentChat.value.type === 'private' ? 'private' : 'group',
-        to: currentChat.value.type === 'private' ? userInfo.value?.id : undefined,
-        room: currentChat.value.type === 'room' ? currentChat.value.name : undefined,
-        content: '这是模拟回复消息',
+        from: "demo-user-reply",
+        type: currentChat.value.type === "private" ? "private" : "group",
+        to:
+          currentChat.value.type === "private" ? userInfo.value?.id : undefined,
+        room:
+          currentChat.value.type === "room"
+            ? currentChat.value.name
+            : undefined,
+        content: "这是模拟回复消息",
         ts: Date.now(),
-        senderName: '模拟用户'
-      }
-      addMessage(replyMessage)
-    }, 1000)
-    
-    messageInput.value = ''
-    return
+        senderName: "模拟用户",
+      };
+      addMessage(replyMessage);
+    }, 1000);
+
+    messageInput.value = "";
+    return;
   }
-  
-  const { $ws } = useNuxtApp()
-  
-  if (currentChat.value.type === 'private') {
+
+  const { $ws } = useNuxtApp();
+
+  if (currentChat.value.type === "private") {
     $ws.send({
-      type: 'private',
+      type: "private",
       to: currentChat.value.id,
-      ...messageData
-    })
-  } else if (currentChat.value.type === 'room') {
+      ...messageData,
+    });
+  } else if (currentChat.value.type === "room") {
     $ws.send({
-      type: 'group',
+      type: "group",
       room: currentChat.value.name,
-      ...messageData
-    })
+      ...messageData,
+    });
   }
-  
-  messageInput.value = ''
-}
+
+  messageInput.value = "";
+};
 
 // 添加消息到列表
 const addMessage = (message) => {
-  messages.value.push(message)
+  messages.value.push(message);
   nextTick(() => {
-    scrollToBottom()
-  })
-}
+    scrollToBottom();
+  });
+  console.log("messages.value", messages.value);
+};
 
 // 滚动到底部
 const scrollToBottom = () => {
   if (messagesContainer.value) {
-    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
+    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
   }
-}
+};
 
 // 格式化时间
 const formatTime = (timestamp) => {
-  return new Date(timestamp).toLocaleTimeString('zh-CN', {
-    hour: '2-digit',
-    minute: '2-digit'
-  })
-}
+  return new Date(timestamp).toLocaleTimeString("zh-CN", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 // 退出登录
 const handleLogout = async () => {
-  const { $ws } = useNuxtApp()
-  $ws.disconnect()
-  
+  const { $ws } = useNuxtApp();
+  $ws.disconnect();
+
   // 清除cookies
-  const token = useCookie('auth-token')
-  const userInfoCookie = useCookie('user-info')
-  token.value = null
-  userInfoCookie.value = null
-  
+  const token = useCookie("auth-token");
+  const userInfoCookie = useCookie("user-info");
+  token.value = null;
+  userInfoCookie.value = null;
+
   // 跳转到登录页
-  await navigateTo('/login')
-}
+  await navigateTo("/login");
+};
 
 // 定期刷新用户列表和房间列表
 onMounted(() => {
-  setInterval(loadOnlineUsers, 30000) // 每30秒刷新一次
-  setInterval(loadRooms, 60000) // 每60秒刷新一次
-})
+  setInterval(loadOnlineUsers, 30000); // 每30秒刷新一次
+  setInterval(loadRooms, 60000); // 每60秒刷新一次
+});
 
 // 组件卸载时关闭WebSocket连接
 onUnmounted(() => {
-  const { $ws } = useNuxtApp()
-  $ws.disconnect()
-})
+  const { $ws } = useNuxtApp();
+  $ws.disconnect();
+});
 </script>
 
 <style scoped>
@@ -728,19 +817,22 @@ onUnmounted(() => {
   margin-left: 0.5rem;
 }
 
-.user-list, .room-list {
+.user-list,
+.room-list {
   flex: 1;
   overflow-y: auto;
   padding: 0.5rem;
 }
 
-.loading, .empty-state {
+.loading,
+.empty-state {
   text-align: center;
   color: #666;
   padding: 2rem;
 }
 
-.user-item, .room-item {
+.user-item,
+.room-item {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -750,7 +842,8 @@ onUnmounted(() => {
   transition: background-color 0.3s;
 }
 
-.user-item:hover, .room-item:hover {
+.user-item:hover,
+.room-item:hover {
   background-color: #f8f9fa;
 }
 
@@ -758,17 +851,20 @@ onUnmounted(() => {
   background-color: #e3f2fd;
 }
 
-.user-details, .room-details {
+.user-details,
+.room-details {
   flex: 1;
 }
 
-.username, .room-name {
+.username,
+.room-name {
   font-weight: 500;
   color: #333;
   display: block;
 }
 
-.connection-info, .member-count {
+.connection-info,
+.member-count {
   font-size: 0.875rem;
   color: #666;
 }
@@ -1012,11 +1108,11 @@ onUnmounted(() => {
   .sidebar {
     display: none;
   }
-  
+
   .back-btn {
     display: block;
   }
-  
+
   .message-content {
     max-width: 85%;
   }
@@ -1026,15 +1122,15 @@ onUnmounted(() => {
   .chat-header {
     padding: 0.75rem 1rem;
   }
-  
+
   .message-form {
     padding: 0.75rem 1rem;
   }
-  
+
   .input-group input {
     padding: 0.5rem 0.75rem;
   }
-  
+
   .send-btn {
     width: 40px;
     height: 40px;

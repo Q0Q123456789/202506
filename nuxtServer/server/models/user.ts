@@ -24,8 +24,8 @@ export class User {
     this.username = data.username
     this.email = data.email
     this.password = data.password
-    this.createdAt = data.created_at || data.createdAt
-    this.updatedAt = data.updated_at || data.updatedAt
+    this.createdAt = data.created_at || data?.createdAt
+    this.updatedAt = data.updated_at || data?.updatedAt
   }
 
   // 生成唯一 ID

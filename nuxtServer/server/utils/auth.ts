@@ -3,7 +3,7 @@ import type { H3Event } from 'h3'
 
 // JWT 密钥
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-here-change-in-production'
-
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 /**
  * 验证JWT token的工具函数
  * @param token JWT token字符串
@@ -23,7 +23,20 @@ export function verifyToken(token: string) {
  * @returns 生成的JWT token字符串
  */
 export function generateToken(payload: any) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
+  // Ensure payload is a plain object. If it's not an object (e.g. a string/number)
+  // wrap it; if it's an object-like (e.g. mongoose doc), serialize then parse
+  let plainPayload: any
+  if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
+    try {
+      plainPayload = JSON.parse(JSON.stringify(payload))
+    } catch (e) {
+      plainPayload = Object.assign({}, payload)
+    }
+  } else {
+    plainPayload = { value: payload }
+  }
+
+  return jwt.sign(plainPayload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
 }
 
 /**
