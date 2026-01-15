@@ -2,17 +2,13 @@
   <div class="home">home</div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useWebSocket } from '@vueuse/core'
 
 const ws = import.meta.env.VITE_APP_WS_URL
 const { status, data, send, open, close } = useWebSocket(`${ws}/${crypto.randomUUID()}`)
-interface FormItems {
-  name: string
-  age: number | string
-  address: string
-}
-const formItems = ref<FormItems>({
+
+const formItems = ref({
   name: '',
   age: '',
   address: ''
