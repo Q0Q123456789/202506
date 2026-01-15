@@ -5,7 +5,7 @@
         <headerPage></headerPage>
       </el-header>
       <el-container>
-        <el-aside width="200px" style="box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.12); height: calc(100vh - 60px)">
+        <el-aside width="200px" class="main-aside">
           <menuPage />
         </el-aside>
         <el-main>
@@ -37,6 +37,12 @@ import menuPage from './menu.vue'
 .el-main {
   padding: 0 16px 16px;
 }
+
+.main-aside {
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.12);
+  height: calc(100vh - 60px);
+}
+
 .main-views {
   padding: 10px;
   height: calc(100vh - 110px);

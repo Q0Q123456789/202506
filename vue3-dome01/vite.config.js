@@ -28,13 +28,14 @@ export default defineConfig(({ mode }) => ({
       // 自动导入Vue相关函数，如：ref, reactive, toRef 等
       imports: ['vue', 'vue-router', 'pinia'],
       // 生成自动导入的类型声明文件
-      dts: 'src/auto-imports.d.ts',
+      dts: 'src/auto-imports.d.ts', // 生成 TypeScript 声明文件
       // ESLint报错解决
       eslintrc: {
         enabled: true, // 生成eslint规则
         filepath: './.eslintrc-auto-import.json', // 规则文件路径
         globalsPropValue: true // 全局变量值
-      }
+      },
+      vueTemplate: true
     }),
     // 自动按文件名注册组件（支持 src/components 目录），并生成 dts
     Components({

@@ -1,5 +1,5 @@
 <template>
-  <el-menu :router="true">
+  <el-menu :router="true" :default-active="defaultActive" :default-openeds="openedMenus">
     <template v-for="(item, index) in menu" :key="index">
       <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
         <template #title> {{ item.name }} </template>
@@ -14,11 +14,12 @@
   </el-menu>
 </template>
 
-<script setup>
+<script setup lang="ts">
+const route = useRoute()
 const menu = [
   {
     name: '首页',
-    path: '/'
+    path: '/home'
   },
   {
     name: '系统管理',
@@ -34,6 +35,15 @@ const menu = [
     ]
   }
 ]
+
+const defaultActive = ref<string>('')
+const openedMenus = ref<string[]>([])
+
+onMounted(() => {
+  console.log('当前路由信息：', route)
+  defaultActive.value = route.path
+  openedMenus.value.push(route.path)
+})
 </script>
 
 <style lang="scss" scoped></style>
