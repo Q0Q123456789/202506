@@ -28,7 +28,7 @@ import breadcrumbPage from './breadcrumb.vue'
 import menuPage from './menu.vue'
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .el-header,
 .el-aside,
 .main-views {

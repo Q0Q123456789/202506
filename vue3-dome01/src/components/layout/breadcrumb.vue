@@ -11,7 +11,7 @@
 import { ArrowRight } from '@element-plus/icons-vue'
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .el-breadcrumb {
   padding: 10px 0;
 }

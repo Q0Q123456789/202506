@@ -25,7 +25,7 @@ const tabsChange = (item) => {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .base-tabs {
   border-bottom: 1px solid #ccc;
   user-select: none;

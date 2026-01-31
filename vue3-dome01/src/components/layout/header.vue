@@ -25,7 +25,7 @@ const handleCommand = (values) => {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .header {
   height: 60px;
   display: flex;
