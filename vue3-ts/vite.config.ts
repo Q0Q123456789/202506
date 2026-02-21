@@ -8,6 +8,8 @@ import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import UnoCSS from 'unocss/vite'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,6 +17,8 @@ export default defineConfig({
     vue(),
     vueJsx(),
     vueDevTools(),
+    UnoCSS(),
+    tailwindcss(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router', 'pinia'], // 自动导入 Vue 相关函数，如：ref, onMounted 等
