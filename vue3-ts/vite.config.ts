@@ -10,6 +10,8 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import UnoCSS from 'unocss/vite'
 import tailwindcss from '@tailwindcss/vite'
+import autoVersion from 'vite-plugin-version-auto';
+
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -28,6 +30,12 @@ export default defineConfig({
       dirs: ['src/components'], // 自动导入 src/components 目录下的组件
       extensions: ['vue', 'ts', 'tsx', 'js', 'jsx'], // 自动导入 .vue 后缀的文件
     }),
+    autoVersion({
+      enabled: true,
+      type: 'patch',        // 每次 build 自动升级 patch 版本
+      injector: true,         // 注入到 HTML
+      console: true,        // 控制台输出版本信息
+    })
   ],
   resolve: {
     alias: {
@@ -35,6 +43,9 @@ export default defineConfig({
     },
   },
   css: {
+    lightningcss: {
+      errorRecovery: true
+    },
     postcss: {
       plugins: [
         postcsspxtoviewport8plugin({
