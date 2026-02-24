@@ -5,8 +5,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
 import DevUI from 'vue-devui';
+
 import 'vue-devui/style.css';
 import '@devui-design/icons/icomoon/devui-icon.css';
+import 'virtual:uno.css'
+import './style/main.css'
 
 import App from './App.vue'
 import router from './router'
