@@ -3,9 +3,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
 import { useWebSocket } from '@vueuse/core'
-import { ref, watch } from 'vue'
 import { Terminal } from '@xterm/xterm'
 
 const terminal = ref(null)
