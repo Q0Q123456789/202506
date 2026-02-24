@@ -1,16 +1,17 @@
-import './style/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import '@devui-design/icons/icomoon/devui-icon.css'
 import VueLogArsenal from 'vue-log-arsenal'
+
+import 'element-plus/dist/index.css'
+import '@devui-design/icons/icomoon/devui-icon.css'
+import '@xterm/xterm/css/xterm.css'
+import './style/main.css'
 
 const app = createApp(App)
 
