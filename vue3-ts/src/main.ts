@@ -10,6 +10,7 @@ import 'vue-devui/style.css';
 import '@devui-design/icons/icomoon/devui-icon.css';
 import 'virtual:uno.css'
 import './style/main.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 import App from './App.vue'
 import router from './router'

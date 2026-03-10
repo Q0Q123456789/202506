@@ -7,7 +7,7 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -27,6 +27,8 @@
     "devui-theme": "^0.1.0",
     "echarts": "^6.0.0",
     "element-plus": "^2.13.1",
+    "mapbox-gl": "^3.19.1",
+    "ol": "^10.8.0",
     "pinia": "^3.0.4",
     "vue": "^3.5.26",
     "vue-devui": "^1.6.36",
