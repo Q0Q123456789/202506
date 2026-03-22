@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -9,12 +9,26 @@ import Components from 'unplugin-vue-components/vite'
 import tailwindcss from '@tailwindcss/vite'
 import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 import VueJsxVapor from 'vue-jsx-vapor/vite'
+import VueRouter from 'vue-router/vite'
+import { VueRouterAutoImports } from 'vue-router/unplugin'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     vueJsx(),
+    VueRouter({
+      /* options */
+      extendRoute(route) {
+        if (route.name === '/[name]') {
+          route.addAlias('/hello-vite-:name')
+        }
+      },
+
+      beforeWriteFiles(root) {
+        root.insert('/from-root', path.join(__dirname, './src/pages/index.vue'))
+      }
+    }),
     tailwindcss(),
     // VueJsxVapor({
     //   macros: true,
@@ -26,7 +40,7 @@ export default defineConfig(({ mode }) => ({
     // 自动导入Vue API
     AutoImport({
       // 自动导入Vue相关函数，如：ref, reactive, toRef 等
-      imports: ['vue', 'vue-router', 'pinia'],
+      imports: ['vue', VueRouterAutoImports, 'pinia'],
       // 生成自动导入的类型声明文件
       dts: 'src/auto-imports.d.ts', // 生成 TypeScript 声明文件
       // ESLint报错解决
