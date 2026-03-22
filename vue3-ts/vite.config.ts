@@ -29,11 +29,22 @@ export default defineConfig({
     AutoImport({
       resolvers: [ElementPlusResolver()],
       imports: ['vue', VueRouterAutoImports, 'pinia'], // 自动导入 Vue 相关函数，如：ref, onMounted 等
+            // 生成自动导入的类型声明文件
+      dts: 'src/auto-imports.d.ts', // 生成 TypeScript 声明文件
+      // ESLint报错解决
+      eslintrc: {
+        enabled: true, // 生成eslint规则
+        filepath: './.eslintrc-auto-import.json', // 规则文件路径
+        globalsPropValue: true // 全局变量值
+      },
+      vueTemplate: true
     }),
     Components({
       resolvers: [ElementPlusResolver()],
       dirs: ['src/components'], // 自动导入 src/components 目录下的组件
       extensions: ['vue', 'ts', 'tsx', 'js', 'jsx'], // 自动导入 .vue 后缀的文件
+      deep: true,
+      dts: 'src/components.d.ts'
     }),
     autoVersion({
       enabled: true,
@@ -46,6 +57,12 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
+  },
+  build: {
+    target: 'es2015',
+    sourcemap: false,
+    // 提升 chunk 警告阈值以避免大型依赖引发噪声（按需调整）
+    chunkSizeWarningLimit: 2000
   },
   css: {
     lightningcss: {

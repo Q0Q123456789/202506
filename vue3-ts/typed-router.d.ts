@@ -34,6 +34,20 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/mapPage': RouteRecordInfo<
+      '/mapPage',
+      '/mapPage',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/user/[id]': RouteRecordInfo<
+      '/user/[id]',
+      '/user/:id',
+      { id: ParamValue<true> },
+      { id: ParamValue<false> },
+      | never
+    >,
   }
 
   /**
@@ -50,6 +64,18 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+    }
+    'src/pages/mapPage.vue': {
+      routes:
+        | '/mapPage'
+      views:
+        | never
+    }
+    'src/pages/user/[id].vue': {
+      routes:
+        | '/user/[id]'
       views:
         | never
     }
