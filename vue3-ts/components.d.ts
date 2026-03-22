@@ -12,8 +12,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ErrorComponent: typeof import('./src/components/ErrorComponent.vue')['default']
-    NotFound: typeof import('./src/components/NotFound.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
@@ -21,8 +19,6 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
-  const ErrorComponent: typeof import('./src/components/ErrorComponent.vue')['default']
-  const NotFound: typeof import('./src/components/NotFound.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
 }

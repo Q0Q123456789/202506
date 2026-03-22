@@ -1,141 +1,141 @@
-import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
-
+import { createRouter, createWebHashHistory } from 'vue-router'
+import { routes, handleHotUpdate } from 'vue-router/auto-routes'
 // 定义路由元信息类型
-export interface RouteMeta {
-  title?: string
-  requiresAuth?: boolean
-  roles?: string[]
-  icon?: string
-  hidden?: boolean
-}
+// export interface RouteMeta {
+//   title?: string
+//   requiresAuth?: boolean
+//   roles?: string[]
+//   icon?: string
+//   hidden?: boolean
+// }
 
-// 扩展 RouteRecordRaw 类型，添加自定义元信息
-export type AppRouteRecordRaw = RouteRecordRaw & {
-  meta?: RouteMeta
-  children?: AppRouteRecordRaw[]
-}
+// // 扩展 RouteRecordRaw 类型，添加自定义元信息
+// export type AppRouteRecordRaw = RouteRecordRaw & {
+//   meta?: RouteMeta
+//   children?: AppRouteRecordRaw[]
+// }
 
-// 动态导入 views 文件夹下面的所有 vue|tsx|jsx 文件
-const modules = import.meta.glob<() => Promise<{ default: any }>>([
-  '../views/**/*.vue',
-  '../views/**/*.tsx',
-  '../views/**/*.jsx',
-])
+// // 动态导入 views 文件夹下面的所有 vue|tsx|jsx 文件
+// const modules = import.meta.glob<() => Promise<{ default: any }>>([
+//   '../views/**/*.vue',
+//   '../views/**/*.tsx',
+//   '../views/**/*.jsx',
+// ])
 
-const routeMap = new Map<string, boolean>()
-const routes: AppRouteRecordRaw[] = Object.keys(modules)
-  .map((key): AppRouteRecordRaw | null => {
-    try {
-      // 统一路径分隔符，确保跨平台兼容性
-      const normalizedKey = key.replace(/\\/g, '/')
+// const routeMap = new Map<string, boolean>()
+// const routes: AppRouteRecordRaw[] = Object.keys(modules)
+//   .map((key): AppRouteRecordRaw | null => {
+//     try {
+//       // 统一路径分隔符，确保跨平台兼容性
+//       const normalizedKey = key.replace(/\\/g, '/')
 
-      // 优化路径解析，减少字符串操作
-      const parts = normalizedKey.split('/')
-      const fileName = parts.pop()
-      if (!fileName) {
-        if (import.meta.env.NODE_ENV === 'development') {
-          console.warn(`Invalid file path: ${key}`)
-        }
-        return null
-      }
+//       // 优化路径解析，减少字符串操作
+//       const parts = normalizedKey.split('/')
+//       const fileName = parts.pop()
+//       if (!fileName) {
+//         if (import.meta.env.NODE_ENV === 'development') {
+//           console.warn(`Invalid file path: ${key}`)
+//         }
+//         return null
+//       }
 
-      // 移除扩展名
-      const baseName = fileName.replace(/\.(vue|tsx|jsx)$/, '')
+//       // 移除扩展名
+//       const baseName = fileName.replace(/\.(vue|tsx|jsx)$/, '')
 
-      // 处理index文件
-      let routeName: string
-      if (baseName === 'index') {
-        const parentDir = parts.pop()
-        if (!parentDir) {
-          if (import.meta.env.NODE_ENV === 'development') {
-            console.warn(`Invalid index file path: ${key}`)
-          }
-          return null
-        }
-        routeName = parentDir
-      } else {
-        routeName = baseName
-      }
+//       // 处理index文件
+//       let routeName: string
+//       if (baseName === 'index') {
+//         const parentDir = parts.pop()
+//         if (!parentDir) {
+//           if (import.meta.env.NODE_ENV === 'development') {
+//             console.warn(`Invalid index file path: ${key}`)
+//           }
+//           return null
+//         }
+//         routeName = parentDir
+//       } else {
+//         routeName = baseName
+//       }
 
-      // 验证路由名称
-      if (!routeName || routeName.trim() === '') {
-        if (import.meta.env.NODE_ENV === 'development') {
-          console.warn(`Invalid route name for file: ${key}`)
-        }
-        return null
-      }
+//       // 验证路由名称
+//       if (!routeName || routeName.trim() === '') {
+//         if (import.meta.env.NODE_ENV === 'development') {
+//           console.warn(`Invalid route name for file: ${key}`)
+//         }
+//         return null
+//       }
 
-      // 处理路由名称中的特殊字符，确保路径安全
-      const safeRouteName = routeName.replace(/[^a-zA-Z0-9_-]/g, '-')
+//       // 处理路由名称中的特殊字符，确保路径安全
+//       const safeRouteName = routeName.replace(/[^a-zA-Z0-9_-]/g, '-')
 
-      // 处理重复路由
-      const normalizedName = safeRouteName.toLowerCase()
-      if (routeMap.has(normalizedName)) {
-        if (import.meta.env.NODE_ENV === 'development') {
-          console.warn(`Duplicate route name detected: ${normalizedName} for file: ${key}`)
-        }
-        return null
-      }
-      routeMap.set(normalizedName, true)
+//       // 处理重复路由
+//       const normalizedName = safeRouteName.toLowerCase()
+//       if (routeMap.has(normalizedName)) {
+//         if (import.meta.env.NODE_ENV === 'development') {
+//           console.warn(`Duplicate route name detected: ${normalizedName} for file: ${key}`)
+//         }
+//         return null
+//       }
+//       routeMap.set(normalizedName, true)
 
-      // 生成路由标题（首字母大写，处理连字符和下划线）
-      const title = safeRouteName
-        .split(/[-_]/)
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
+//       // 生成路由标题（首字母大写，处理连字符和下划线）
+//       const title = safeRouteName
+//         .split(/[-_]/)
+//         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+//         .join(' ')
 
-      // 开发环境调试日志
-      if (import.meta.env.NODE_ENV === 'development') {
-        console.log('Route generation:', { key, fileName, routeName: normalizedName, title })
-      }
+//       // 开发环境调试日志
+//       if (import.meta.env.NODE_ENV === 'development') {
+//         console.log('Route generation:', { key, fileName, routeName: normalizedName, title })
+//       }
 
-      return {
-        path: `/${normalizedName}`,
-        name: normalizedName,
-        meta: {
-          title,
-          requiresAuth: false, // 默认不需要认证
-          roles: [], // 默认无角色限制
-        },
-        component: async () => {
-          try {
-            const loader = modules[key]
-            if (!loader) {
-              console.error(`Module loader not found for key: ${key}`)
-              return (await import('../components/ErrorComponent.vue')).default
-            }
-            const module = await loader()
-            return module.default !== undefined ? module.default : module
-          } catch (error) {
-            console.error(`Failed to load route component for ${key}:`, error)
-            return (await import('../components/ErrorComponent.vue')).default
-          }
-        },
-      }
-    } catch (error) {
-      console.error(`Error processing route for file ${key}:`, error)
-      return null
-    }
-  })
-  .filter((route): route is AppRouteRecordRaw => route !== null)
-routes.push({
-  path: '/',
-  redirect: '/home',
-  meta: {
-    title: 'Home',
-    hidden: true,
-  },
-})
-// 添加404路由作为fallback
-routes.push({
-  path: '/:pathMatch(.*)*',
-  name: 'not-found',
-  meta: {
-    title: 'Not Found',
-    hidden: true,
-  },
-  component: async () => (await import('../components/NotFound.vue')).default,
-})
+//       return {
+//         path: `/${normalizedName}`,
+//         name: normalizedName,
+//         meta: {
+//           title,
+//           requiresAuth: false, // 默认不需要认证
+//           roles: [], // 默认无角色限制
+//         },
+//         component: async () => {
+//           try {
+//             const loader = modules[key]
+//             if (!loader) {
+//               console.error(`Module loader not found for key: ${key}`)
+//               return (await import('../components/ErrorComponent.vue')).default
+//             }
+//             const module = await loader()
+//             return module.default !== undefined ? module.default : module
+//           } catch (error) {
+//             console.error(`Failed to load route component for ${key}:`, error)
+//             return (await import('../components/ErrorComponent.vue')).default
+//           }
+//         },
+//       }
+//     } catch (error) {
+//       console.error(`Error processing route for file ${key}:`, error)
+//       return null
+//     }
+//   })
+//   .filter((route): route is AppRouteRecordRaw => route !== null)
+// routes.push({
+//   path: '/',
+//   redirect: '/home',
+//   meta: {
+//     title: 'Home',
+//     hidden: true,
+//   },
+// })
+// // 添加404路由作为fallback
+// routes.push({
+//   path: '/:pathMatch(.*)*',
+//   name: 'not-found',
+//   meta: {
+//     title: 'Not Found',
+//     hidden: true,
+//   },
+//   component: async () => (await import('../components/NotFound.vue')).default,
+// })
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -194,5 +194,10 @@ const router = createRouter({
 //     console.log('Route changed:', { from: from.path, to: to.path })
 //   }
 // })
+
+// 这将在运行时更新路由而无需重新加载页面
+if (import.meta.hot) {
+  handleHotUpdate(router)
+}
 
 export default router

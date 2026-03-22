@@ -11,19 +11,24 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import UnoCSS from 'unocss/vite'
 import tailwindcss from '@tailwindcss/vite'
 import autoVersion from 'vite-plugin-version-auto';
+import VueRouter from 'vue-router/vite'
+import { VueRouterAutoImports } from 'vue-router/unplugin'
 
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    VueRouter({
+      /* options */
+    }),
     vueJsx(),
     vueDevTools(),
     UnoCSS(),
     tailwindcss(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
-      imports: ['vue', 'vue-router', 'pinia'], // 自动导入 Vue 相关函数，如：ref, onMounted 等
+      imports: ['vue', VueRouterAutoImports, 'pinia'], // 自动导入 Vue 相关函数，如：ref, onMounted 等
     }),
     Components({
       resolvers: [ElementPlusResolver()],
