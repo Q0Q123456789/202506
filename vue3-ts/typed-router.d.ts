@@ -41,6 +41,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/threePage': RouteRecordInfo<
+      '/threePage',
+      '/threePage',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/user/[id]': RouteRecordInfo<
       '/user/[id]',
       '/user/:id',
@@ -70,6 +77,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/mapPage.vue': {
       routes:
         | '/mapPage'
+      views:
+        | never
+    }
+    'src/pages/threePage.vue': {
+      routes:
+        | '/threePage'
       views:
         | never
     }
