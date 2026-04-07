@@ -10,13 +10,13 @@ import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import XYZ from 'ol/source/XYZ'
 import { ScaleLine, defaults } from 'ol/control'
-// import OSM from 'ol/source/OSM'
 import mapUtils from '@/components/mapUtils.vue'
 
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { replaceTemplate } from '@/utils/util'
 import { fromLonLat, toLonLat } from 'ol/proj'
 
-const token = import.meta.env.VITE_MAP_KEY
+const mapParam = import.meta.env.VITE_MAP_PARAM
 
 //实例化比例尺控件（ScaleLine）
 const scaleLineControl = new ScaleLine({
@@ -34,6 +34,9 @@ const position = ref<positions>({
   latitude: 30,
 })
 
+// 天地图URL模板
+const tiandituUrlTemplate = import.meta.env.VITE_MAP_DOMAIN_NAME
+
 onMounted(() => {
   const map = new Map({
     // target指向DOM元素
@@ -43,27 +46,31 @@ onMounted(() => {
       new TileLayer({
         // source: new OSM(), // 使用OpenStreetMap数据源
         source: new XYZ({
-          url: `http://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${token}`,
+          url: `${replaceTemplate(tiandituUrlTemplate, ['img_w', 'img'])}&${mapParam}`,
           attributions: '© 天地图',
         }),
       }),
       new TileLayer({
         // source: new OSM(), // 使用OpenStreetMap数据源
         source: new XYZ({
-          url: `http://t0.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cia&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${token}`,
+          url: `${replaceTemplate(tiandituUrlTemplate, ['cia_w', 'cia'])}&${mapParam}`,
           attributions: '© 天地图',
         }),
       }),
       // new TileLayer({
       //   // source: new OSM(), // 使用OpenStreetMap数据源
       //   source: new XYZ({
-      //     url: `http://t0.tianditu.gov.cn/ibo_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ibo&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${token}`,
+      //     url: `http://map.429004.online/img_c/{z}/{x}/{y}/tile.png`,
       //     attributions: '© 天地图',
       //   }),
       // }),
-      // new TileLayer({
-      //   source: new OSM(), // 使用OpenStreetMap数据源
-      // }),
+      new TileLayer({
+        // source: new OSM(), // 使用OpenStreetMap数据源
+        source: new XYZ({
+          url: `${replaceTemplate(tiandituUrlTemplate, ['ibo_w', 'ibo'])}&${mapParam}`,
+          attributions: '© 天地图',
+        }),
+      }),
     ],
     // 配置视图
     view: new View({
@@ -88,13 +95,12 @@ onMounted(() => {
     // console.log('鼠标移动事件:', event)
     const coordinate = event.coordinate
     const pixel = event.pixel
-    // console.log(toLonLat(coordinate))
 
     position.value = {
       latitude: toLonLat(coordinate)[1],
       longitude: toLonLat(coordinate)[0],
     }
-    // console.log(pixel)
+
     // 示例：可根据 coordinate 与 pixel 自行实现更新逻辑
     // updateMousePosition(coordinate, pixel)
     const features = map.getFeaturesAtPixel(pixel)
