@@ -6,7 +6,7 @@
 import { useRoute } from 'vue-router'
 
 interface RouteParams {
-  id: string
+  id: number
 }
 const route = useRoute()
 const { id } = route.params as RouteParams

@@ -1,5 +1,6 @@
 <template>
   <div id="map"></div>
+  <mapUtils v-bind="position" />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +11,7 @@ import TileLayer from 'ol/layer/Tile'
 import XYZ from 'ol/source/XYZ'
 import { ScaleLine, defaults } from 'ol/control'
 // import OSM from 'ol/source/OSM'
+import mapUtils from '@/components/mapUtils.vue'
 
 import { onMounted } from 'vue'
 import { fromLonLat, toLonLat } from 'ol/proj'
@@ -20,6 +22,16 @@ const token = import.meta.env.VITE_MAP_KEY
 const scaleLineControl = new ScaleLine({
   //设置比例尺单位，degrees、imperial、us、nautical、metric（度量单位）
   units: 'metric',
+})
+
+interface positions {
+  longitude: number
+  latitude: number
+}
+
+const position = ref<positions>({
+  longitude: 120,
+  latitude: 30,
 })
 
 onMounted(() => {
@@ -55,8 +67,8 @@ onMounted(() => {
     ],
     // 配置视图
     view: new View({
-      center: fromLonLat([120, 30]), // 初始中心点
-      zoom: 7, // 初始缩放级别
+      center: fromLonLat([121.32, 31.2]), // 初始中心点
+      zoom: 9, // 初始缩放级别
       minZoom: 1,
       maxZoom: 18,
       projection: 'EPSG:3857',
@@ -73,11 +85,16 @@ onMounted(() => {
 
   // 鼠标移动事件
   map.on('pointermove', (event) => {
-    console.log('鼠标移动事件:', event)
+    // console.log('鼠标移动事件:', event)
     const coordinate = event.coordinate
     const pixel = event.pixel
-    console.log(toLonLat(coordinate))
-    console.log(pixel)
+    // console.log(toLonLat(coordinate))
+
+    position.value = {
+      latitude: toLonLat(coordinate)[1],
+      longitude: toLonLat(coordinate)[0],
+    }
+    // console.log(pixel)
     // 示例：可根据 coordinate 与 pixel 自行实现更新逻辑
     // updateMousePosition(coordinate, pixel)
     const features = map.getFeaturesAtPixel(pixel)
