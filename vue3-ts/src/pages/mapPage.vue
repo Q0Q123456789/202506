@@ -1,6 +1,7 @@
 <template>
   <div id="map"></div>
   <mapUtils v-bind="position" />
+  <!-- <el-button type="primary" @click="getLocation">获取定位信息</el-button> -->
 </template>
 
 <script setup lang="ts">
@@ -13,7 +14,7 @@ import { ScaleLine, defaults } from 'ol/control'
 import mapUtils from '@/components/mapUtils.vue'
 
 import { ref, onMounted } from 'vue'
-import { replaceTemplate } from '@/utils/util'
+import { replaceTemplate, useLocation } from '@/utils/util'
 import { fromLonLat, toLonLat } from 'ol/proj'
 
 const mapParam = import.meta.env.VITE_MAP_PARAM
@@ -121,6 +122,15 @@ onMounted(() => {
   //   console.log('当前缩放级别:', map.getView().getZoom())
   // })
 })
+
+const getLocation = async () => {
+  const { coords, loading, error, getLocation } = await useLocation()
+  console.log(await getLocation())
+  console.log(coords)
+  console.log(loading)
+  console.log(error)
+}
+getLocation()
 </script>
 <style scoped>
 #map {

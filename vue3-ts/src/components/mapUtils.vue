@@ -16,7 +16,9 @@ const dmsFormat = (coordinate: number) => {
   const decimalPart = (absolute - degrees) * 60 // 计算剩余部分转换为分钟的小数形式
   const minutes = Math.floor(decimalPart) // 计算分钟数
   const seconds = (decimalPart - minutes) * 60 // 计算秒数的小数形式
-  return `${coordinate < 0 ? '-' : ''}${degrees}° ${minutes}' ${seconds.toFixed(2)}"` // 格式化输出
+  return `${
+    coordinate < 0 ? (coordinate > 90 ? 'W' : 'S') : coordinate > 90 ? 'E' : 'N'
+  } ${degrees}° ${minutes}' ${seconds.toFixed(2)}"` // 格式化输出
 }
 </script>
 

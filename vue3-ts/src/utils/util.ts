@@ -10,3 +10,41 @@ export function replaceTemplate(template, params) {
     return params[key]
   })
 }
+
+/**
+ * 定位信息
+ */
+export const useLocation = () => {
+  let coords = { lat: null, lng: null }
+  let loading = false
+  let error = null
+
+  const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject('浏览器不支持定位')
+        return
+      }
+
+      loading = true
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position)
+          coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }
+          loading = false
+          resolve(coords)
+        },
+        (err) => {
+          error = err.message
+          loading = false
+          reject(err)
+        },
+      )
+    })
+  }
+
+  return { coords, loading, error, getLocation }
+}

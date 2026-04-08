@@ -12,6 +12,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ElButton: typeof import('element-plus/es')['ElButton']
     MapUtils: typeof import('./components/mapUtils.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -20,6 +21,7 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const ElButton: typeof import('element-plus/es')['ElButton']
   const MapUtils: typeof import('./components/mapUtils.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
