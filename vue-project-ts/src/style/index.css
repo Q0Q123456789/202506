@@ -1,9 +1,40 @@
 @import 'tailwindcss';
 
-html,
-body {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-weight: normal;
+}
+
+html,
+body {
   width: 100%;
   height: 100%;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'LCD';
+  src: url('@/fonts/LCDAT&TPhoneTimeDate.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
