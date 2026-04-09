@@ -34,6 +34,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/MapboxGLMap': RouteRecordInfo<
+      '/MapboxGLMap',
+      '/MapboxGLMap',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/mapPage': RouteRecordInfo<
       '/mapPage',
       '/mapPage',
@@ -71,6 +78,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+    }
+    'src/pages/MapboxGLMap.vue': {
+      routes:
+        | '/MapboxGLMap'
       views:
         | never
     }

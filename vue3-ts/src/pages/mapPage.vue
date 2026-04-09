@@ -18,6 +18,8 @@ import { replaceTemplate, useLocation } from '@/utils/util'
 import { fromLonLat, toLonLat } from 'ol/proj'
 
 const mapParam = import.meta.env.VITE_MAP_PARAM
+// 天地图URL模板
+const tiandituUrlTemplate = import.meta.env.VITE_MAP_DOMAIN_NAME
 
 //实例化比例尺控件（ScaleLine）
 const scaleLineControl = new ScaleLine({
@@ -34,9 +36,6 @@ const position = ref<positions>({
   longitude: 120,
   latitude: 30,
 })
-
-// 天地图URL模板
-const tiandituUrlTemplate = import.meta.env.VITE_MAP_DOMAIN_NAME
 
 onMounted(() => {
   const map = new Map({
