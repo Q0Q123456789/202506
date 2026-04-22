@@ -17,6 +17,7 @@ declare module 'vue' {
     MapUtils: typeof import('./components/mapUtils.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ToggleDraw: typeof import('./components/toggleDraw.vue')['default']
   }
 }
 
@@ -27,4 +28,5 @@ declare global {
   const MapUtils: typeof import('./components/mapUtils.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
+  const ToggleDraw: typeof import('./components/toggleDraw.vue')['default']
 }
