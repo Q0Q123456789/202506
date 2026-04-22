@@ -4,7 +4,7 @@
  * @param params 替换参数数组
  * @returns 替换后的字符串
  */
-export function replaceTemplate(template, params) {
+export function replaceTemplate(template: any, params: any) {
   return template.replace(/{(.*?)}/g, (match, p1) => {
     const key = p1.trim().split('.')
     return params[key]

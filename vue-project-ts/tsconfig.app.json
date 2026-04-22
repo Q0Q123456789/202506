@@ -7,9 +7,7 @@
     "noUncheckedIndexedAccess": true,
 
     // Path mapping for cleaner imports.
-    "paths": {
-      "@/*": ["./src/*"]
-    },
+    "paths": { "@/*": ["./src/*"], "vuex": ["./node_modules/vuex/types/index.d.ts"] },
 
     // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
     // Specified here to keep it out of the root directory.

@@ -21,6 +21,7 @@
   "dependencies": {
     "@devui-design/icons": "^1.4.0",
     "@element-plus/icons-vue": "^2.3.2",
+    "@mapbox/mapbox-gl-draw": "^1.5.1",
     "@vueuse/core": "^14.2.1",
     "axios": "^1.13.6",
     "dayjs": "^1.11.20",
@@ -28,6 +29,7 @@
     "echarts": "^6.0.0",
     "element-plus": "^2.13.6",
     "mapbox-gl": "^3.20.0",
+    "mapbox-gl-draw-freehand-mode": "^3.0.0",
     "ol": "^10.8.0",
     "pinia": "^3.0.4",
     "three": "^0.183.2",
