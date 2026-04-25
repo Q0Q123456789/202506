@@ -48,3 +48,25 @@ export const useLocation = () => {
 
   return { coords, loading, error, getLocation }
 }
+
+// 节流函数
+export const throttle = (func: Function, delay: number) => {
+  let timeoutId: number
+  let lastExecTime = 0
+  return function (...args: any[]) {
+    const currentTime = Date.now()
+    if (currentTime - lastExecTime > delay) {
+      func?.apply(null, args)
+      lastExecTime = currentTime
+    } else {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(
+        () => {
+          func?.apply(null, args)
+          lastExecTime = Date.now()
+        },
+        delay - (currentTime - lastExecTime),
+      )
+    }
+  }
+}
