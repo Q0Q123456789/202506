@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/cesiumPage': RouteRecordInfo<
+      '/cesiumPage',
+      '/cesiumPage',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/MapboxGLMap': RouteRecordInfo<
       '/MapboxGLMap',
       '/MapboxGLMap',
@@ -81,6 +88,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+    }
+    'src/pages/cesiumPage.vue': {
+      routes:
+        | '/cesiumPage'
       views:
         | never
     }

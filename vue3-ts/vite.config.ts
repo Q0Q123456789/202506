@@ -13,6 +13,7 @@ import tailwindcss from '@tailwindcss/vite'
 import autoVersion from 'vite-plugin-version-auto'
 import VueRouter from 'vue-router/vite'
 import { VueRouterAutoImports } from 'vue-router/unplugin'
+import cesium from 'vite-plugin-cesium'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -51,6 +52,7 @@ export default defineConfig({
       injector: true, // 注入到 HTML
       console: true, // 控制台输出版本信息
     }),
+    cesium()
   ],
   resolve: {
     alias: {
